@@ -79,5 +79,6 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 6379 16379
 #CMD ["redis-server"]
 FROM redis
-COPY redis.conf /usr/local/etc/redis/redis.conf
-CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+COPY redis.conf /data/redis.conf
+RUN chown redis:redis /data/redis.conf
+CMD [ "redis-server", "/data/redis.conf" ]
