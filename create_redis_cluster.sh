@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 APP_NAME='redis1'
-IMAGE='redis/benny'
+IMAGE='redis/benny2'
 
 docker stop ${APP_NAME}
 docker rm -f ${APP_NAME}
