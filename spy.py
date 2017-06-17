@@ -4,8 +4,8 @@ import time
 
 # 'host': '172.17.0.2'
 config = {
-    'host': '10.0.0.1'
-
+    'host': '10.0.0.1',
+    'port': '7002'
 }
 
 r = redis.StrictRedis(**config)

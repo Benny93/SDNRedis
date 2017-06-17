@@ -64,14 +64,17 @@ RUN set -ex; \
 	make -C /usr/src/redis install; \
 	\
 	rm -r /usr/src/redis; \
-	\
+    \
 	apt-get purge -y --auto-remove $buildDeps
 
 RUN mkdir /data && chown redis:redis /data
 VOLUME /data
 WORKDIR /data
 
-
+RUN apt-get update; \
+    apt-get install -y ruby wget;\
+    wget -O redis.tar.gz "$REDIS_DOWNLOAD_URL" -P / ;\
+    echo ">>> Executed own instructions";
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
@@ -81,4 +84,7 @@ EXPOSE 6379 16379
 FROM redis
 COPY redis.conf /data/redis.conf
 RUN chown redis:redis /data/redis.conf
+# upload nodes conf file
+COPY nodes.conf /data/nodes.conf
+RUN chown redis:redis /data/nodes.conf
 CMD [ "redis-server", "/data/redis.conf" ]
