@@ -9,6 +9,8 @@ class State(object):
     OBJECT_IDENTIFIER = 'switch'
     FIELD_IDENTIFIER = 'mac_to_port'
 
+    # TODO: change __init__ signature to require this setting
+    # Requires at least one node for cluster discovery. Multiple nodes is recommended.
     startup_nodes = [{"host": "10.0.0.1", "port": "7000"}]
 
     def __init__(self):
