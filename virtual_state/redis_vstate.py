@@ -12,9 +12,9 @@ class State(object):
     cluster = {
         # node names
         'nodes': {  # masters
-            'node_1': {'host': '10.0.0.1', 'port': 7001},
+            'node_1': {'host': '10.0.0.1', 'port': 7000},
+            'node_2': {'host': '10.0.0.1', 'port': 7001},
             'node_2': {'host': '10.0.0.1', 'port': 7002},
-            'node_2': {'host': '10.0.0.1', 'port': 7003},
         }
     }
 
