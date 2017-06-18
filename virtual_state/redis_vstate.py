@@ -9,19 +9,12 @@ class State(object):
     OBJECT_IDENTIFIER = 'switch'
     FIELD_IDENTIFIER = 'mac_to_port'
 
-    cluster = {
-        # node names
-        'nodes': {  # masters
-            'node_1': {'host': '10.0.0.1', 'port': 7000},
-            'node_2': {'host': '10.0.0.1', 'port': 7001},
-            'node_2': {'host': '10.0.0.1', 'port': 7002},
-        }
-    }
+    startup_nodes = [{"host": "10.0.0.1", "port": "7000"}]
 
     def __init__(self):
         # connect to session
-        self.redis =\
-            rediscluster.StrictRedisCluster(cluster=self.cluster, db=0)
+        self.redis = \
+            rediscluster.StrictRedisCluster(startup_nodes=self.startup_nodes, decode_responses=True)
 
     def get_mac_to_port(self, dpid):
         """
