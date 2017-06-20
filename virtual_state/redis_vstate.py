@@ -29,7 +29,9 @@ class State(object):
         if not self.redis.exists(name):
             return {}
         # else return the whole dictionary
-        return self.redis.hgetall(name)
+        mac_to_port = self.redis.hgetall(name)
+        # convert port back to int
+        return dict((mac, int(port)) for (mac, port) in mac_to_port.iteritems())
 
     def update_mac_to_port(self, dpid, data):
         """
