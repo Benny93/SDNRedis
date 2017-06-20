@@ -4,6 +4,8 @@ from ryu.controller.handler import set_ev_cls, MAIN_DISPATCHER
 from ryu.lib.packet import ether_types
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import packet
+from ryu.topology import event
+
 from virtual_state import redis_vstate as rvs
 
 
@@ -16,6 +18,14 @@ class SimpleSwitch13VState(simple_switch_13.SimpleSwitch13):
     def __init__(self, *args, **kwargs):
         super(SimpleSwitch13VState, self).__init__(*args, **kwargs)
         self.state = rvs.State()
+
+    @set_ev_cls(event.EventSwitchEnter)
+    def _event_switch_enter_handler(self, ev):
+        print "SWEnter: {}".format(ev.switch.to_dict())
+
+    @set_ev_cls(event.EventSwitchLeave)
+    def _event_switch_leave_handler(self, ev):
+        print "SWLeave: {}".format(ev.switch.to_dict())
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):

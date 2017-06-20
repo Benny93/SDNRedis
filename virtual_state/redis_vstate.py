@@ -42,3 +42,14 @@ class State(object):
         """
         name = "{}:{}:{}".format(self.OBJECT_IDENTIFIER, dpid, self.FIELD_IDENTIFIER)
         self.redis.hmset(name, data)
+
+    def expire_datapath(self, dpid, time):
+        """
+        Set an expire flag on key name for time seconds.
+        Time can be represented by an integer or a Python timedelta object.
+        :param dpid:
+        :param time:
+        :return:
+        """
+        name = "{}:{}:{}".format(self.OBJECT_IDENTIFIER, dpid, self.FIELD_IDENTIFIER)
+        self.redis.expire(name, time)
