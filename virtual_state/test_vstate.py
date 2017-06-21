@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import random
 import unittest
 from unittest import TestCase

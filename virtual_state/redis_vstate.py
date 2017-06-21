@@ -8,6 +8,8 @@ import rediscluster
 class State(object):
     OBJECT_IDENTIFIER = 'switch'
     FIELD_IDENTIFIER = 'mac_to_port'
+    WAIT_NUM_REPLICAS = 1
+    WAIT_TIMEOUT = 1000
 
     # TODO: change __init__ signature to require this setting
     # Requires at least one node for cluster discovery. Multiple nodes is recommended.
@@ -42,6 +44,7 @@ class State(object):
         """
         name = "{}:{}:{}".format(self.OBJECT_IDENTIFIER, dpid, self.FIELD_IDENTIFIER)
         self.redis.hmset(name, data)
+        self.redis.wait(self.WAIT_NUM_REPLICAS, self.WAIT_TIMEOUT)
 
     def expire_datapath(self, dpid, time):
         """
